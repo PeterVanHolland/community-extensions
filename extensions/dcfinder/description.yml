@@ -1,0 +1,29 @@
+extension:
+  name: dcfinder
+  description: Discover denial constraints (DCs) from data — subsumes functional dependencies, unique column combinations, and order dependencies
+  version: 0.0.1
+  language: C++
+  build: cmake
+  license: MIT
+  maintainers:
+    - pdet
+
+repo:
+  github: PeterVanHolland/duckdb-dcfinder
+  ref: ee63051766f27288afdb0dbcee1a68927e6a5fe2
+
+docs:
+  hello_world: |
+    -- Discover denial constraints from a table
+    CREATE TABLE employees AS SELECT * FROM (VALUES
+        ('Alice', 'Engineering', 90000, 2015),
+        ('Bob', 'Engineering', 95000, 2013),
+        ('Carol', 'Marketing', 70000, 2018)
+    ) AS t(name, department, salary, hired_year);
+    SELECT * FROM dcfinder('employees');
+  extended_description: |
+    DCFinder discovers Denial Constraints (DCs) from data — a powerful class of integrity constraints
+    that subsumes functional dependencies, unique column combinations, and order dependencies.
+    Based on the paper: Pena, de Almeida, Naumann. "Discovery of Approximate (and Exact) Denial Constraints." PVLDB 2019.
+    Supports exact and approximate DC discovery with configurable thresholds, violation detection,
+    error cell identification, repair suggestions, and one-shot auto-cleaning via dc_clean().
